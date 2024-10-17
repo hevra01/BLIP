@@ -1,5 +1,5 @@
-from models.med import BertConfig, BertModel, BertLMHeadModel
-from models.blip import create_vit, init_tokenizer, load_checkpoint
+from .med import BertConfig, BertModel, BertLMHeadModel
+from .blip import create_vit, init_tokenizer, load_checkpoint
 
 import torch
 from torch import nn
@@ -9,7 +9,7 @@ import numpy as np
 
 class BLIP_VQA(nn.Module):
     def __init__(self,                 
-                 med_config = 'configs/med_config.json',  
+                 med_config = '/home/hepe00001/Desktop/neuro_explicit/generative_diffusion/coco_prep/prep_coco_for_rectified_layout/BLIP/configs/med_config.json',  
                  image_size = 480,
                  vit = 'base',
                  vit_grad_ckpt = False,
