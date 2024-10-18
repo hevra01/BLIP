@@ -105,6 +105,7 @@ class BLIP_Decoder(nn.Module):
     def forward(self, image, caption):
         
         image_embeds = self.visual_encoder(image) 
+        
         image_atts = torch.ones(image_embeds.size()[:-1],dtype=torch.long).to(image.device)
         
         text = self.tokenizer(caption, padding='longest', truncation=True, max_length=40, return_tensors="pt").to(image.device) 

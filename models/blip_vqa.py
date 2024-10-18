@@ -37,6 +37,7 @@ class BLIP_VQA(nn.Module):
     def forward(self, image, question, answer=None, n=None, weights=None, train=True, inference='rank', k_test=128):
         
         image_embeds = self.visual_encoder(image) 
+        
         image_atts = torch.ones(image_embeds.size()[:-1],dtype=torch.long).to(image.device)
         
         question = self.tokenizer(question, padding='longest', truncation=True, max_length=35, 
@@ -89,7 +90,7 @@ class BLIP_VQA(nn.Module):
                                                 return_dict = True) 
             
             if inference=='generate':
-                num_beams = 3
+                num_beams = 1
                 question_states = question_output.last_hidden_state.repeat_interleave(num_beams,dim=0)
                 question_atts = torch.ones(question_states.size()[:-1],dtype=torch.long).to(question_states.device)
                 model_kwargs = {"encoder_hidden_states": question_states, "encoder_attention_mask":question_atts}
